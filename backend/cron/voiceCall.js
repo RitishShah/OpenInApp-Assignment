@@ -25,10 +25,6 @@ cron.schedule('0 * * * *', async () => {
     for (const task of overdueTasks) {
       const userId = task.user;
       const user = await User.findById(userId);
-      const priority = user.priority;
-
-      // Check if the user has the same or less priority.
-      if (priority <= task.priority) {
 
         const twiml = new VoiceResponse();
         twiml.say('Hello, this is a voice call from Twilio.');
@@ -40,9 +36,7 @@ cron.schedule('0 * * * *', async () => {
           url: twiml.toString(),
         });
 
-        console.log(`Voice call made to ${user.email} at ${user.phoneNumber}`);
-        break; // Break the loop after making the call
-      }
+        console.log(`Voice call made to ${user.email} at ${user.phoneNumber}`)
     }
   } catch (error) {
     console.error('Error making voice calls:', error);

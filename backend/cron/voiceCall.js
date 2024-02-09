@@ -19,7 +19,7 @@ cron.schedule('0 * * * *', async () => {
   try {
     // Find overdue tasks with the highest priority
     const currentDate = new Date();
-    const overdueTasks = await Task.find({ dueDate: { $lt: currentDate }, status: 'TODO' }).sort({ priority: -1 }).populate('User');
+    const overdueTasks = await Task.find({ dueDate: { $lt: currentDate }, status: 'TODO' }).sort({ priority: 1 }).populate('User');
 
     // Iterate over the tasks and make calls
     for (const task of overdueTasks) {
